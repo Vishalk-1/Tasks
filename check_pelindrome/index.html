@@ -36,6 +36,7 @@
     <script>
         function checkPalindrome() {
             var inputString = document.getElementById("inputString").value;
+            const final=inputString.toUpperCase();
             var reversedString = inputString.split('').reverse().join('');
 
             if (inputString === reversedString) {
