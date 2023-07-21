@@ -39,7 +39,7 @@
             const final=inputString.toUpperCase();
             var reversedString = inputString.split('').reverse().join('');
 
-            if (inputString === reversedString) {
+            if (final === reversedString) {
                 document.getElementById("result").innerText = inputString + " is a palindrome!";
             } else {
                 document.getElementById("result").innerText = inputString + " is not a palindrome.";
