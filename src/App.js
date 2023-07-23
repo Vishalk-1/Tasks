@@ -1,34 +1,57 @@
-import {React} from "react";
-import Login from '../src/components/Login';
-// import { useState,useEffect } from "react";
-  
-// function UseSate(){
-//     const[a,seta]=useState(0);
-//     useEffect(() => {
-//     setTimeout(() => {
-//          seta((a)=>a+1);
-//     },1000);
-// });
-//     // const set=()=>{
-//     //     seta(a+1);
-//     // }
-//     return(
-//         <div>
-//         {/* <button onClick={set}>inc.</button> */}
-//         <p>{a}</p>
-//         </div>
-//     )
-// }
+import React, { useState } from 'react';
+import './App.css';
 
-function App() {
-    return (
-      <div className="App">
+const TodoApp = () => {
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState('');
 
-       <Login/>
-      </div>
+  const addTodo = () => {
+    if (inputValue.trim() === '') return;
+
+    const newTodo = {
+      id: Date.now(),
+      text: inputValue,
+      completed: false,
+    };
+
+    setTodos([...todos, newTodo]);
+    setInputValue('');
+  };
+
+  const toggleTodo = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
     );
-  }
-  
-  export default App;
-  // export default UseSate;
+  };
 
+  const removeTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  return (
+    <div className="todo-app">
+      <h1>Todo App</h1>
+      <div className="input-container">
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+        <button className='button' onClick={addTodo}>Add</button>
+      </div>
+
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id} className={todo.completed ? 'completed' : ''}>
+            <span onClick={() => toggleTodo(todo.id)}>{todo.text}</span>
+            <button onClick={() => removeTodo(todo.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default TodoApp;
